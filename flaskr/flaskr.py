@@ -18,7 +18,7 @@ def connect_db():
 
 def init_db():
 	with closing(connect_db()) as db:
-		with app.open_resource('schema.sql', mode = 'r') as f:
+		with app.open_resource('schema.sql', mode='r') as f:
 			db.cursor().executescript(f.read())
 		db.commit()
 
@@ -35,8 +35,8 @@ def teardown_request(exception):
 @app.route('/')
 def show_entries():
 	cur = g.db.execute('select title, text from entries order by id desc')
-	entries = [dict(title = row[0], text = row[1]) for row in cur.fetchall()]
-	return render_template('show_entries.html', entries = entries)
+	entries = [dict(title=row[0], text = row[1]) for row in cur.fetchall()]
+	return render_template('show_entries.html', entries=entries)
 
 @app.route('/add', methods = ['POST'])
 def add_entry():
